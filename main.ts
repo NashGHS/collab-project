@@ -1,16 +1,21 @@
 namespace SpriteKind {
     export const goal = SpriteKind.create()
 }
+// If you touch the ground you loose
 scene.onOverlapTile(SpriteKind.Player, sprites.castle.tileDarkGrass1, function (sprite, location) {
     game.gameOver(false)
 })
+// Throws ball on A button press
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     myDart.throwDart()
 })
+// Calls endScreenSplash when touching the goal
 sprites.onOverlap(SpriteKind.Player, SpriteKind.goal, function (sprite, otherSprite) {
     endScreenSplash(info.countdown())
 })
-// end screen splash function
+// endScreenSplash function
+// 
+// Checks if you took less or more than ten seconds and outputs the correct code
 function endScreenSplash (endTime: number) {
     if (endTime <= 10) {
         game.showLongText("You did it!", DialogLayout.Bottom)
@@ -19,8 +24,7 @@ function endScreenSplash (endTime: number) {
         game.splash(" Seconds to score!")
         game.splash("Great Job " + name)
         game.gameOver(true)
-    }
-    else {
+    } else {
         game.splash("Too slow!")
         game.splash("You took")
         game.splash(endTime)
@@ -28,6 +32,7 @@ function endScreenSplash (endTime: number) {
         game.gameOver(false)
     }
 }
+// Start code, asks for your name and saves it in a variable. Then creates the ball and adds controls
 let myDart: Dart = null
 let name = ""
 // asks for name
@@ -179,6 +184,7 @@ scroller.scrollBackgroundWithCamera(scroller.CameraScrollMode.BothDirections)
 scene.cameraFollowSprite(myDart)
 let goal1 = sprites.create(assets.image`goal`, SpriteKind.goal)
 goal1.setPosition(160, 120)
+// Poorly made timer :)
 game.onUpdateInterval(1000, function () {
     info.changeCountdownBy(2)
 })
