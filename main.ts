@@ -12,12 +12,21 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.goal, function (sprite, otherSpr
 })
 // end screen splash function
 function endScreenSplash (endTime: number) {
-    game.showLongText("You did it!", DialogLayout.Bottom)
-    game.splash("It took you")
-    game.splash(endTime)
-    game.splash(" Seconds to score!")
-    game.splash("Great Job " + name)
-    game.gameOver(true)
+    if (endTime <= 10) {
+        game.showLongText("You did it!", DialogLayout.Bottom)
+        game.splash("It took you")
+        game.splash(endTime)
+        game.splash(" Seconds to score!")
+        game.splash("Great Job " + name)
+        game.gameOver(true)
+    }
+    else {
+        game.splash("Too slow!")
+        game.splash("You took")
+        game.splash(endTime)
+        game.splash(" Seconds to score")
+        game.gameOver(false)
+    }
 }
 let myDart: Dart = null
 let name = ""
